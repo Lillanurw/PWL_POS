@@ -21,3 +21,21 @@ DB_DATABASE=laravel
 DB_USERNAME=root
 DB_PASSWORD=
 ```
+MIGRATION
+```
+C:\laragon\www\PWL_POS>php artisan make:migration Level --create=m_level
+l    l
+   INFO  Migration [C:\laragon\www\PWL_POS\database\migrations/2024_03_01_023718_level.php] created successfully.
+```
+```
+C:\laragon\www\PWL_POS>php artisan make:migration create_m_kategori_table --create=m_kategori
+
+   INFO  Migration [C:\laragon\www\PWL_POS\database\migrations/2024_03_01_025248_create_m_kategori_table.php] created successfully.
+
+
+C:\laragon\www\PWL_POS>php artisan migrate
+
+   INFO  Running migrations.
+
+  2024_03_01_024826_kategori ........................................................ 23ms DONE
+  ```
