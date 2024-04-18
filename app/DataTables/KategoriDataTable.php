@@ -70,7 +70,7 @@ class KategoriDataTable extends DataTable
  ->printable(false)
  ->width(60)
  ->addClass('text-center'), */
-            Colum::make('kategori_id'),
+            Column::make('kategori_id'),
             Column::make('kategori_kode'),
             Column::make('kategori_nama'),
             Column::make('created_at'),

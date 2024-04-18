@@ -23,11 +23,10 @@ class UserController extends Controller
         ];
 
         $activeMenu = 'user'; //set menu yang sedang aktif
-        $level = UserModel::all();
+        $level = LevelModel::all();
         return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page,
         'level'=>$level, 'activeMenu' => $activeMenu]);
     }
-
 
     public function list(Request $request)
     {
@@ -54,7 +53,7 @@ class UserController extends Controller
     {
         $breadcrumb = (object) [
             'title' => 'Tambah User',
-            'list' => ['Home', 'User', 'Ta,bah']
+            'list' => ['Home', 'User', 'Tambah']
         ];
 
         $page = (object) [
@@ -66,8 +65,6 @@ class UserController extends Controller
 
         return view('user.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
-
-    
 
     public function store(Request $request)
     {
@@ -105,7 +102,7 @@ class UserController extends Controller
 
         return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
     }
-
+    
     public function edit(string $id)
     {
         $user = UserModel::find($id);
@@ -159,4 +156,4 @@ class UserController extends Controller
             return redirect('/user')->with('error' . 'Data user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
- }
+}
