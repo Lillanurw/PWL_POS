@@ -109,3 +109,10 @@ Route::group(['prefix'=>'penjualan'],function(){
     Route::delete('/{id}',[penjualanController::class,'destroy']);
     Route::get('/{id}/edit', [penjualanController::class,'edit']);
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

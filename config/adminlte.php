@@ -1,9 +1,5 @@
 <?php
 
-use PharIo\Manifest\Url;
-
-use function Laravel\Prompts\text;
-
 return [
 
     /*
@@ -320,18 +316,12 @@ return [
             'can' => 'manage-blog',
         ],
         [
-            'text'=>'category',
-            'url'=>'kategori',
-            'icon'=>'fas fa-tags',
-        ],
-        [
             'text' => 'pages',
             'url' => 'admin/pages',
             'icon' => 'far fa-fw fa-file',
             'label' => 4,
             'label_color' => 'success',
         ],
-        
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
@@ -412,13 +402,13 @@ return [
     */
 
     'filters' => [
-        // JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
-        // JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
-        // JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter::class,
-        // JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
-        // JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
-        // JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
-        // JeroenNoten\LaravelAdminLte\Menu\Filters\DataFilter::class,
+        JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
+        JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
+        JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter::class,
+        JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
+        JeroenNoten\LaravelAdminLte\Menu\Filters\ClassesFilter::class,
+        JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
+        JeroenNoten\LaravelAdminLte\Menu\Filters\DataFilter::class,
     ],
 
     /*
