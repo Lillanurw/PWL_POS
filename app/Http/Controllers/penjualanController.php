@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangModel;
 use Illuminate\Http\Request;
 use App\Models\penjualanModel;
 use App\Models\UserModel;
@@ -20,15 +21,17 @@ class penjualanController extends Controller
             'title' => 'Daftar transaksi penjualan '
         ];
         $activeMenu = 'penjualan'; 
-        $user = UserModel::all();  
+        $user = UserModel::all();
+        $barang = BarangModel::all();  
+       
 
-        return view('penjualan.index', ['breadcrumb' => $breadcrumb, 'page' => $page,'user' => $user, 'activeMenu' => $activeMenu]);
+        return view('penjualan.index', ['breadcrumb' => $breadcrumb, 'page' => $page,'user' => $user, 'barang' => $barang, 'activeMenu' => $activeMenu]);
     }
 
 
     public function list(Request $request)
     {
-        $penjualan = penjualanModel::select('penjualan_id','pembeli','user_id','barang_id','harga','jumlah')->with('user');
+        $penjualan = penjualanModel::select('penjualan_id','user_id','pembeli','Penjualan_kode','penjualan_tanggal')->with('user');
 
         if ($request->user_id) {
             $penjualan->where('user_id', $request->user_id);

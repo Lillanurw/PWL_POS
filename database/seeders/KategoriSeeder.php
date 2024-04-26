@@ -39,6 +39,7 @@ class KategoriSeeder extends Seeder
                 'kategori_kode' => 'SK005',
                 'kategori_nama' => 'Sunscreen',
             ],
+           
         ];
         DB::table('m_kategori')->insert($data);
 }

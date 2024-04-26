@@ -91,8 +91,8 @@ class BarangSeeder extends Seeder
                 'kategori_id' => 5,
                 'barang_kode' => 'SS02',
                 'barang_nama' => 'Sunscreen HadaLabo',
-                'harga_beli' => 23000,
-                'harga_jual' => 25000,
+                'harga_beli' => 40000,
+                'harga_jual' => 40000,
             ],
            
         ];

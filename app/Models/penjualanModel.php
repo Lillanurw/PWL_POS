@@ -10,10 +10,10 @@ class penjualanModel extends Model
 {
     use HasFactory;
 
-    protected $table = 't_penjualan'; // Sesuaikan dengan nama tabel yang benar
+    protected $table = 't_penjualan'; 
     protected $primaryKey = 'penjualan_id'; 
 
-    protected $fillable = ['penjualan_id','pembeli','user_id','barang_id','harga','jumlah'];
+    protected $fillable = ['user_id','pembeli','Penjualan_kode','penjualan_tanggal'];
 
     public function user(): BelongsTo
     {
