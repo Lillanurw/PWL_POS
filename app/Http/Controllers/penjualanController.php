@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BarangModel;
 use Illuminate\Http\Request;
 use App\Models\penjualanModel;
 use App\Models\UserModel;
 use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class penjualanController extends Controller
 {
@@ -20,25 +20,23 @@ class penjualanController extends Controller
         $page = (object) [
             'title' => 'Daftar transaksi penjualan '
         ];
-        $activeMenu = 'penjualan'; 
+        $activeMenu = 'penjualan';
         $user = UserModel::all();
-        $barang = BarangModel::all();  
-       
 
-        return view('penjualan.index', ['breadcrumb' => $breadcrumb, 'page' => $page,'user' => $user, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+        return view('penjualan.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
     }
 
 
     public function list(Request $request)
     {
-        $penjualan = penjualanModel::select('penjualan_id','user_id','pembeli','Penjualan_kode','penjualan_tanggal')->with('user');
+        $penjualan = penjualanModel::select('penjualan_id', 'pembeli', 'user_id', 'barang_id', 'harga', 'jumlah')->with('user');
 
         if ($request->user_id) {
             $penjualan->where('user_id', $request->user_id);
         }
 
         return DataTables::of($penjualan)
-            ->addIndexColumn() 
+            ->addIndexColumn()
             ->addColumn('aksi', function ($penjualan) { // menambahkan kolom aksi
                 $btn = '<a href="' . url('/penjualan/' . $penjualan->penjualan_id) . '" class="btn btn-info btn-sm">Detail</a> ';
                 $btn .= '<a href="' . url('/penjualan/' . $penjualan->penjualan_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
@@ -127,5 +125,42 @@ class penjualanController extends Controller
             'detailTransaksi' => $detailTransaksi,
             'activeMenu' => $activeMenu
         ]);
+    }
+    public function __invoke(Request $request)
+    {
+        //set validation
+        $validator = Validator::make($request->all(), [
+            'user_id'=>'required',
+            'barang_id'=>'required',
+            'harga'=>'required',
+            'jumlah'=>'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        //if validations fails
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $image = $request->file('image');
+
+        //create user
+        $penjualan = PenjualanModel::create([
+            'user_id'=>$request->user_id,
+            'barang_id'=>$request->barang_id,
+            'harga'=>$request->harga,
+            'jumlah'=>$request->jumlah,
+            'image' => $image->hashName(),
+        ]);
+        //return response JSON user is created
+        if ($penjualan) {
+            return response()->json([
+                'success' => true,
+                'penjualan' => $penjualan,
+            ], 201);
+        }
+        //return JSON process insert failed
+        return response()->json([
+            'success' => false,
+        ], 409);
     }
 }
